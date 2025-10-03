@@ -5,7 +5,7 @@ import Link from "next/link";
 import { Trophy, Coins } from "lucide-react";
 import { UserButton, useAuth } from "@clerk/nextjs";
 import { usePathname } from "next/navigation";
-import { TokenDisplayData, DashBoardNavBarClientProps } from "@/lib/types";
+import { DashBoardNavBarClientProps } from "@/lib/types";
 
 const DashBoardNavBarClient = ({ tokenData }: DashBoardNavBarClientProps) => {
   const pathname = usePathname();

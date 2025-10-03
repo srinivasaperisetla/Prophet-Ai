@@ -1,6 +1,7 @@
 import { verifyWebhook } from "@clerk/nextjs/webhooks";
 import { NextRequest } from "next/server";
 import { createUser, updateUser, deleteUser } from "@/lib/user-actions";
+import type { UserJSON, DeletedObjectJSON } from "@clerk/nextjs/server";
 
 export async function POST(req: NextRequest) {
   try {
@@ -36,13 +37,14 @@ export async function POST(req: NextRequest) {
   }
 }
 
-async function handleUserCreated(userData: any) {
+async function handleUserCreated(userData: UserJSON) {
   try {
     const { id, email_addresses } = userData;
 
     // Extract primary verified email
     const primaryEmail = email_addresses?.find(
-      (email: any) => email.verification?.verified,
+      (email) =>
+        (email.verification as { verified?: boolean })?.verified === true,
     );
 
     if (!primaryEmail?.email_address) {
@@ -63,13 +65,14 @@ async function handleUserCreated(userData: any) {
   }
 }
 
-async function handleUserUpdated(userData: any) {
+async function handleUserUpdated(userData: UserJSON) {
   try {
     const { id, email_addresses } = userData;
 
     // Extract primary verified email
     const primaryEmail = email_addresses?.find(
-      (email: any) => email.verification?.verified,
+      (email) =>
+        (email.verification as { verified?: boolean })?.verified === true,
     );
 
     if (!primaryEmail?.email_address) {
@@ -87,7 +90,7 @@ async function handleUserUpdated(userData: any) {
   }
 }
 
-async function handleUserDeleted(userData: any) {
+async function handleUserDeleted(userData: DeletedObjectJSON) {
   try {
     const { id } = userData;
 
