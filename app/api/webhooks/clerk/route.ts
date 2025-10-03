@@ -41,16 +41,37 @@ async function handleUserCreated(userData: UserJSON) {
   try {
     const { id, email_addresses } = userData;
 
-    // Extract primary verified email
-    const primaryEmail = email_addresses?.find(
+    console.log("Debug - Full user data:", JSON.stringify(userData, null, 2));
+    console.log(
+      "Debug - Email addresses:",
+      JSON.stringify(email_addresses, null, 2),
+    );
+
+    // Extract primary email (first verified email or first email if none verified)
+    let primaryEmail = email_addresses?.find(
       (email) =>
         (email.verification as { verified?: boolean })?.verified === true,
     );
 
+    // If no verified email found, use the first email address
+    if (!primaryEmail && email_addresses && email_addresses.length > 0) {
+      primaryEmail = email_addresses[0];
+      console.log(
+        "Debug - Using first email address:",
+        primaryEmail.email_address,
+      );
+    }
+
     if (!primaryEmail?.email_address) {
-      console.error("No verified email found for user:", id);
+      console.error("No email found for user:", id);
+      console.error("Available email addresses:", email_addresses);
       return;
     }
+
+    console.log(
+      "Debug - Creating user with email:",
+      primaryEmail.email_address,
+    );
 
     await createUser({
       id,
@@ -69,14 +90,19 @@ async function handleUserUpdated(userData: UserJSON) {
   try {
     const { id, email_addresses } = userData;
 
-    // Extract primary verified email
-    const primaryEmail = email_addresses?.find(
+    // Extract primary email (first verified email or first email if none verified)
+    let primaryEmail = email_addresses?.find(
       (email) =>
         (email.verification as { verified?: boolean })?.verified === true,
     );
 
+    // If no verified email found, use the first email address
+    if (!primaryEmail && email_addresses && email_addresses.length > 0) {
+      primaryEmail = email_addresses[0];
+    }
+
     if (!primaryEmail?.email_address) {
-      console.error("No verified email found for user:", id);
+      console.error("No email found for user:", id);
       return;
     }
 
