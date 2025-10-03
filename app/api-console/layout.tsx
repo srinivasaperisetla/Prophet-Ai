@@ -1,6 +1,5 @@
 import React from "react";
-import { auth } from "@clerk/nextjs/server";
-import { getUserWithTokenLedger } from "@/lib/actions";
+import { getUser } from "@/lib/user-actions";
 import { DashBoardNavBarClient } from "@/components/DashBoardNavBarClient";
 import { TokenDisplayData } from "@/lib/types";
 
@@ -9,22 +8,19 @@ export default async function ApiConsoleLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const { userId } = await auth();
-
   let tokenData: TokenDisplayData | null = null;
-  if (userId) {
-    try {
-      const user = await getUserWithTokenLedger(userId);
-      if (user && user.token_ledger) {
-        tokenData = {
-          available: user.token_ledger.available || 0,
-          used: user.token_ledger.used || 0,
-          billing_model: user.billing_model || "pay-per-token",
-        };
-      }
-    } catch (error) {
-      console.error("Error fetching token data:", error);
+
+  try {
+    const user = await getUser();
+    if (user && user.token_ledger) {
+      tokenData = {
+        available: user.token_ledger.available || 0,
+        used: user.token_ledger.used || 0,
+        billing_model: user.billing_model || "pay-per-token",
+      };
     }
+  } catch (error) {
+    console.error("Error fetching token data:", error);
   }
 
   return (

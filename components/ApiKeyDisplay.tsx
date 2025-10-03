@@ -1,13 +1,10 @@
 "use client";
 import React, { useState } from "react";
 import { Copy, RefreshCw, Key, Check } from "lucide-react";
-import { regenerateUserApiKey } from "@/lib/server-actions";
+import { regenerateApiKey as regenerateApiKeyAction } from "@/lib/user-actions";
 import { ApiKeyDisplayData, ApiKeyDisplayProps } from "@/lib/types";
 
-export const ApiKeyDisplay: React.FC<ApiKeyDisplayProps> = ({
-  apiKey,
-  userId,
-}) => {
+export const ApiKeyDisplay: React.FC<ApiKeyDisplayProps> = ({ apiKey }) => {
   const [copySuccess, setCopySuccess] = useState(false);
   const [regenerating, setRegenerating] = useState(false);
   const [currentApiKey, setCurrentApiKey] = useState<ApiKeyDisplayData | null>(
@@ -31,7 +28,7 @@ export const ApiKeyDisplay: React.FC<ApiKeyDisplayProps> = ({
       setRegenerating(true);
 
       // Call the server action
-      const result = await regenerateUserApiKey(userId);
+      const result = await regenerateApiKeyAction();
 
       if (result.success && result.apiKey) {
         setCurrentApiKey(result.apiKey);
@@ -73,14 +70,14 @@ export const ApiKeyDisplay: React.FC<ApiKeyDisplayProps> = ({
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-sm text-zinc-400">
-            <span>
+          <div className="flex items-center justify-between text-white">
+            <span className="text-sm">
               Created: {new Date(currentApiKey.created_at).toLocaleDateString()}
             </span>
             <button
               onClick={regenerateApiKey}
               disabled={regenerating}
-              className="flex cursor-pointer items-center gap-2 rounded-lg border border-purple-600 px-4 py-2 text-white transition-colors hover:bg-purple-700 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+              className="text-md flex cursor-pointer items-center gap-2 rounded-full px-3 py-1 font-bold text-zinc-300/70 transition-all duration-300 hover:bg-white/10 hover:text-purple-400 disabled:cursor-not-allowed disabled:opacity-50"
             >
               <RefreshCw
                 className={`h-4 w-4 ${regenerating ? "animate-spin" : ""}`}

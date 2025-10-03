@@ -41,7 +41,6 @@ export interface TokenDisplayData {
 // Component Props Interfaces
 export interface ApiKeyDisplayProps {
   apiKey: ApiKeyDisplayData | null;
-  userId: string;
 }
 
 export interface DashBoardNavBarClientProps {

@@ -1,30 +1,9 @@
 "use client";
-import React, { useState } from "react";
-import { Settings, Trash2, Crown, Coins, AlertTriangle } from "lucide-react";
-import { deleteUserAccount } from "@/lib/server-actions";
-import { UserData, SettingsClientProps } from "@/lib/types";
+import React from "react";
+import { Settings, Crown, Coins } from "lucide-react";
+import { SettingsClientProps } from "@/lib/types";
 
 export const SettingsClient = ({ userData }: SettingsClientProps) => {
-  const [deleting, setDeleting] = useState(false);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-
-  const handleDeleteUser = async () => {
-    try {
-      setDeleting(true);
-      const result = await deleteUserAccount();
-
-      if (result.success) {
-        // Redirect to home page after successful deletion
-        window.location.href = "/";
-      }
-    } catch (error) {
-      console.error("Error deleting user:", error);
-    } finally {
-      setDeleting(false);
-      setShowDeleteConfirm(false);
-    }
-  };
-
   return (
     <div className="w-full">
       <div className="mb-4 flex items-center gap-3">
@@ -71,7 +50,7 @@ export const SettingsClient = ({ userData }: SettingsClientProps) => {
                       </div>
                     </>
                   ) : (
-                    <button className="cursor-pointer rounded-lg border border-purple-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-purple-700">
+                    <button className="cursor-pointer rounded-full px-3 py-1 font-bold text-zinc-300/70 transition-all duration-300 hover:bg-white/10 hover:text-purple-400">
                       Upgrade to Pro
                     </button>
                   )}
@@ -106,71 +85,10 @@ export const SettingsClient = ({ userData }: SettingsClientProps) => {
               </div>
             </div>
           </div>
-
-          {/* Danger Zone */}
-          <div className="rounded-lg border border-red-700/50 bg-red-900/20 p-4">
-            <div className="mb-3 flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-red-400" />
-              <h2 className="text-lg font-semibold text-red-400">
-                Danger Zone
-              </h2>
-            </div>
-            <p className="mb-3 text-sm text-red-300">
-              Once you delete your account, there is no going back. This action
-              will permanently remove:
-            </p>
-            <ul className="mb-4 space-y-0.5 text-xs text-red-300">
-              <li>• All your API keys and usage data</li>
-              <li>• Your billing information and subscription</li>
-              <li>• All associated tokens and credits</li>
-              <li>• Your account and personal data</li>
-            </ul>
-            <button
-              onClick={() => setShowDeleteConfirm(true)}
-              className="flex cursor-pointer items-center gap-2 rounded-lg bg-red-600 px-4 py-2 text-sm font-medium text-white transition-colors hover:bg-red-700"
-            >
-              <Trash2 className="h-4 w-4" />
-              Delete Account
-            </button>
-          </div>
         </div>
       ) : (
         <div className="text-zinc-400">
           Failed to load user data. Please try again.
-        </div>
-      )}
-
-      {/* Delete Confirmation Modal */}
-      {showDeleteConfirm && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
-          <div className="mx-4 max-w-sm rounded-lg border border-zinc-700 bg-zinc-800 p-4">
-            <div className="mb-3 flex items-center gap-2">
-              <AlertTriangle className="h-5 w-5 text-red-400" />
-              <h3 className="text-base font-semibold text-white">
-                Delete Account
-              </h3>
-            </div>
-            <p className="mb-4 text-sm text-zinc-400">
-              Are you absolutely sure you want to delete your account? This
-              action cannot be undone and will permanently remove all your data,
-              API keys, and billing information.
-            </p>
-            <div className="flex gap-2">
-              <button
-                onClick={() => setShowDeleteConfirm(false)}
-                className="flex-1 cursor-pointer rounded-lg bg-zinc-600 px-3 py-2 text-sm text-white transition-colors hover:bg-zinc-700"
-              >
-                Cancel
-              </button>
-              <button
-                onClick={handleDeleteUser}
-                disabled={deleting}
-                className="flex-1 cursor-pointer rounded-lg bg-red-600 px-3 py-2 text-sm text-white transition-colors hover:bg-red-700 disabled:cursor-not-allowed disabled:opacity-50"
-              >
-                {deleting ? "Deleting..." : "Delete Account"}
-              </button>
-            </div>
-          </div>
         </div>
       )}
     </div>
