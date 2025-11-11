@@ -104,15 +104,6 @@ export async function checkoutCredits(transaction: CheckoutTransaction) {
 
     redirect(session.url!);
   } catch (error) {
-    // Don't log redirect errors - they're expected behavior in Next.js
-    // Redirect errors have a specific digest or message pattern
-    if (
-      error instanceof Error &&
-      (error.message === "NEXT_REDIRECT" ||
-        (error as any).digest?.includes("NEXT_REDIRECT"))
-    ) {
-      throw error; // Re-throw redirect errors without logging
-    }
     console.error("Error in checkoutCredits:", error);
     throw error;
   }

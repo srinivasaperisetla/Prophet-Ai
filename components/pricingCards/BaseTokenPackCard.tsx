@@ -24,15 +24,6 @@ export const BaseTokenPackCard = () => {
         userId: userId,
       });
     } catch (error) {
-      // Don't show error for redirects - they're expected
-      // Redirect errors have a specific digest or message pattern
-      if (
-        error instanceof Error &&
-        (error.message === "NEXT_REDIRECT" ||
-          (error as any).digest?.includes("NEXT_REDIRECT"))
-      ) {
-        return; // Let the redirect happen
-      }
       console.error("Error initiating checkout:", error);
       alert("Failed to start checkout. Please try again.");
       setIsLoading(false);
