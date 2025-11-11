@@ -61,7 +61,7 @@ const Navbar = () => {
               </SignInButton>
 
               <SignUpButton>
-                <button className="cursor-pointer rounded-lg border border-purple-600 px-5 py-2 font-bold text-zinc-300 transition-all duration-300 hover:bg-purple-700 hover:text-white">
+                <button className="cursor-pointer rounded-lg border border-purple-600 px-5 py-2 font-bold text-zinc-300 transition-all duration-300 hover:bg-purple-600 hover:text-white">
                   Start betting
                 </button>
               </SignUpButton>
@@ -71,7 +71,7 @@ const Navbar = () => {
               <div className="flex items-center gap-4">
                 <UserButton />
                 <Link href="/dashboard">
-                  <button className="flex cursor-pointer items-center gap-2 rounded-lg border border-purple-600 px-4 py-2 font-bold text-zinc-300 transition-all duration-200 hover:bg-purple-700 hover:text-white">
+                  <button className="flex cursor-pointer items-center gap-2 rounded-lg border border-purple-600 px-4 py-2 font-bold text-zinc-300 transition-all duration-200 hover:bg-purple-600 hover:text-white">
                     Dashboard
                     <ArrowRight className="h-4 w-4" />
                   </button>

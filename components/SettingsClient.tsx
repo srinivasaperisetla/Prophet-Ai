@@ -1,20 +1,19 @@
 "use client";
 import React from "react";
-import { Settings, Crown, Coins } from "lucide-react";
+import { Crown, Coins } from "lucide-react";
 import { SettingsClientProps } from "@/lib/types";
 
 export const SettingsClient = ({ userData }: SettingsClientProps) => {
   return (
     <div className="w-full">
       <div className="mb-4 flex items-center gap-3">
-        <Settings className="h-6 w-6 text-purple-600" />
-        <h1 className="text-2xl font-bold text-white">Account Settings</h1>
+        <h1 className="px-2 text-2xl font-bold text-white">Account Settings</h1>
       </div>
 
       {userData ? (
         <div className="space-y-4">
           {/* Current Plan */}
-          <div className="rounded-lg border border-zinc-700/50 bg-zinc-800/50 p-4">
+          <div className="rounded-lg bg-zinc-800/50 p-4">
             <h2 className="mb-3 text-lg font-semibold text-white">
               Current Plan
             </h2>
@@ -60,18 +59,18 @@ export const SettingsClient = ({ userData }: SettingsClientProps) => {
           </div>
 
           {/* Account Information */}
-          <div className="rounded-lg border border-zinc-700/50 bg-zinc-800/50 p-4">
+          <div className="rounded-lg bg-zinc-800/50 p-4">
             <h2 className="mb-3 text-lg font-semibold text-white">
               Account Information
             </h2>
             <div className="space-y-2 rounded-lg bg-zinc-900 p-3">
-              <div className="flex items-center justify-between border-b border-zinc-700/50 py-1">
+              <div className="flex items-center justify-between py-1">
                 <span className="text-sm text-zinc-400">Email Address</span>
                 <span className="text-sm font-medium text-white">
                   {userData.email}
                 </span>
               </div>
-              <div className="flex items-center justify-between border-b border-zinc-700/50 py-1">
+              <div className="flex items-center justify-between py-1">
                 <span className="text-sm text-zinc-400">Account ID</span>
                 <span className="font-mono text-xs text-white">
                   {userData.id}

@@ -54,3 +54,38 @@ export interface SettingsClientProps {
 export interface DashboardLayoutClientProps {
   children: React.ReactNode;
 }
+
+// ============================================================================
+// TRANSACTION TYPES
+// ============================================================================
+
+export type PlanType =
+  | "starter-pack"
+  | "base-pack"
+  | "value-pack"
+  | "high-roller-pack"
+  | "pro";
+
+export interface CheckoutTransaction {
+  plan: PlanType;
+  userId: string;
+}
+
+export interface TransactionData {
+  id?: string;
+  user_id: string;
+  plan: PlanType;
+  amount: number;
+  tokens: number;
+  stripe_session_id?: string;
+  stripe_payment_intent_id?: string;
+  status?: "pending" | "completed" | "failed";
+  created_at?: string;
+}
+
+export interface PlanConfig {
+  name: string;
+  amount: number; // in dollars
+  tokens: number;
+  isSubscription: boolean;
+}

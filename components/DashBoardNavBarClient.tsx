@@ -30,11 +30,14 @@ const DashBoardNavBarClient = ({ tokenData }: DashBoardNavBarClientProps) => {
     const IconComponent = Coins;
 
     return (
-      <div className="flex items-center gap-2 px-3 py-2">
+      <Link
+        className="flex cursor-pointer items-center gap-2 rounded-full px-3 py-1 transition-all duration-300 hover:bg-white/10"
+        href="/dashboard/purchase-tokens"
+      >
         <IconComponent className="h-5 w-5 text-purple-400" />
         <span className="font-bold text-white">{displayText}</span>
         {isPro && <span className="font-bold text-purple-400">Unlimited</span>}
-      </div>
+      </Link>
     );
   };
 

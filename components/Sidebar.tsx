@@ -10,6 +10,7 @@ import {
   CreditCard,
   BookOpen,
   HelpCircle,
+  ShoppingCart,
 } from "lucide-react";
 
 const Sidebar = () => {
@@ -18,6 +19,11 @@ const Sidebar = () => {
 
   const navigationItems = [
     { name: "Overview", href: "/dashboard", icon: Clock },
+    {
+      name: "Purchase Tokens",
+      href: "/dashboard/purchase-tokens",
+      icon: ShoppingCart,
+    },
     { name: "Settings", href: "/dashboard/settings", icon: Settings },
     {
       name: "Billing & Invoices",
@@ -64,7 +70,7 @@ const Sidebar = () => {
                 className={`flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium transition-colors ${
                   isActive
                     ? "bg-zinc-800 text-white"
-                    : "text-zinc-400 hover:bg-zinc-800/50 hover:text-white"
+                    : "text-zinc-300/70 hover:bg-zinc-800/50 hover:text-white"
                 }`}
               >
                 <Icon className="h-4 w-4" />

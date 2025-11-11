@@ -25,6 +25,9 @@ const Dashboard = async () => {
 
     return (
       <div className="w-full">
+        <div className="mb-4 flex items-center gap-3">
+          <h1 className="px-2 text-2xl font-bold text-white">Overview</h1>
+        </div>
         <ApiKeyDisplay apiKey={apiKeyData} />
       </div>
     );
